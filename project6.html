@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project 6: Data Visualization</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        h2 { color: #555; }
+        ul { list-style-type: disc; margin-left: 20px; }
+        li { margin: 5px 0; }
+        pre { background: #f7f7f7; border: 1px solid #ddd; padding: 10px; overflow-x:auto; }
+        code { font-family: Consolas, 'Courier New', monospace; white-space: pre-wrap; }
+    </style>
+</head>
+<body>
+    <h1>Project 6: Data Exploration and Visualization</h1>
+    <h2>Import Libraries</h2>
+    <p>Import the necessary libraries (pandas, matplotlib, seaborn) at the beginning of your notebook by creating code cells below this text cell.</p>
+    <pre><code>import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns</code></pre>
+
+    <h2>Load Your Data</h2>
+    <p>Load your chosen dataset using pandas and save it to a pandas dataframe. Please create a code cell below this text cell to do it.</p>
+    <pre><code>from google.colab import drive
+drive.mount('/content/drive')
+df = pd.read_excel('/content/drive/MyDrive/opera_data.xlsx')
+'''The data set I selected was a list of opera performances with information about the composers, works and performances.
+I found it on Kaggle at https://www.kaggle.com/datasets/thedevastator/world-s-largest-database-of-opera-performances.'''</code></pre>
+    
+
+    <h2>Data Summary</h2>
+    <p>Use the following functions to do inital exploration your dataset:</p>
+    <ul>
+        <li>info() - Display information about the dataset structure</li>
+        <li>describe() - Show statistical summary of numerical columns</li>
+        <li>head() - Display the first 5 rows (df.head())</li>
+        <li>shape - Show the dimensions of the dataset (e.g. df.shape)</li>
+        <li>columns - Get the column names (e.g. df.columns)</li>
+    </ul>
+    <pre><code>print(df.info())</code></pre>
+    <p> "class 'pandas.core.frame.DataFrame'> </p>
+    <p>RangeIndex: 33127 entries, 0 to 33126</p>
+    <p>Data columns (total 15 columns):</p>
+<table border="1" cellspacing="0" cellpadding="4">
+  <thead><tr><th>#</th><th>Column</th><th>Non-null</th><th>DType</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td>index</td><td>33127</td><td>int64</td></tr>
+    <tr><td>1</td><td>season</td><td>33127</td><td>int64</td></tr>
+    <tr><td>2</td><td>iso</td><td>33127</td><td>object</td></tr>
+    <tr><td>3</td><td>city</td><td>33127</td><td>object</td></tr>
+    <tr><td>4</td><td>composer</td><td>33122</td><td>object</td></tr>
+    <tr><td>5</td><td>db</td><td>32958</td><td>object</td></tr>
+    <tr><td>6</td><td>dd</td><td>30470</td><td>object</td></tr>
+    <tr><td>7</td><td>nat</td><td>33116</td><td>object</td></tr>
+    <tr><td>8</td><td>mf</td><td>33127</td><td>object</td></tr>
+    <tr><td>9</td><td>work</td><td>33122</td><td>object</td></tr> 
+    <tr><td>10</td><td>worknat</td><td>31779</td><td>object</td></tr>
+    <tr><td>11</td><td>type</td><td>33127</td><td>object</td></tr>
+    <tr><td>12</td><td>start date</td><td>33127</td><td>int64</td></tr>
+    <tr><td>13</td><td>performances</td><td>33127</td><td>int64</td></tr>
+    <tr><td>14</td><td>production</td><td>8844</td><td>object</td></tr>
+  </tbody>
+</table> 
+<p>dtypes: int64(4), object(11)</p>
+<p>memory usage: 3.8+ MB</p>
+    <pre><code>print(df.describe())</code></pre>
+<table border="1" cellspacing="0" cellpadding="4">
+  <thead>
+    <tr><th>stat</th><th>index</th><th>season</th><th>start date</th><th>performances</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>count</td><td>33127</td><td>33127</td><td>33127</td><td>33127</td></tr>
+    <tr><td>mean</td><td>16563.0</td><td>1460.87</td><td>20150790.0</td><td>4.287</td></tr>
+    <tr><td>std</td><td>9563.09</td><td>171.37</td><td>17454.44</td><td>3.707</td></tr>
+    <tr><td>min</td><td>0.0</td><td>1213.0</td><td>20120620.0</td><td>1.0</td></tr>
+    <tr><td>25%</td><td>8281.5</td><td>1314.0</td><td>20140110.0</td><td>2.0</td></tr>
+    <tr><td>50%</td><td>16563.0</td><td>1415.0</td><td>20150710.0</td><td>3.0</tr>
+    <tr><td>75%</td><td>24844.5</td><td>1617.0</td><td>20161203.0</td><td>6.0</td></tr>
+    <tr><td>max</td><td>33126.0</td><td>1718.0</td><td>20180803.0</td><td>71.0</td></tr>
+  </tbody>
+</table>
+    <pre><code>
+        print(df.head())
+    </code></pre>
+    <table border="1" cellspacing="0" cellpadding="4">
+  <thead>
+    <tr>
+      <th>index</th><th>season</th><th>iso</th><th>city</th><th>composer</th><th>db</th><th>dd</th><th>nat</th><th>mf</th><th>work</th><th>worknat</th><th>type</th><th>start date</th><th>performances</th><th>production</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td><td>1213</td><td>al</td><td>Tirana</td><td>Lortzing</td><td>18011023</td><td>18510121</td><td>de</td><td>m</td><td>Ali Pascha von Janina</td><td>de</td><td>~B</td><td>20130323</td><td>4</td><td>NaN</td>
+    </tr>
+    <tr>
+      <td>1</td><td>1213</td><td>al</td><td>Tirana</td><td>Mozart</td><td>17560127</td><td>17911205</td><td>at</td><td>m</td><td>Don Giovanni</td><td>it</td><td>~</td><td>20130518</td><td>3</td><td>NaN</td>
+    </tr>
+    <tr>
+      <td>2</td><td>1213</td><td>al</td><td>Tirana</td><td>Puccini</td><td>18581222</td><td>19241129</td><td>it</td><td>m</td><td>Tosca</td><td>it</td><td>~</td><td>20130213</td><td>2</td><td>NaN</td>
+    </tr>
+    <tr>
+      <td>3</td><td>1213</td><td>am</td><td>Yerevan</td><td>Spendiaryan</td><td >18711020</td><td>19280507</td><td>am</td><td>m</td><td>Almast</td><td>am</td><td>~</td><td>20130711</td><td>1</td><td>NaN</td>
+    </tr>
+    <tr><td>4</td><td>1213</td><td>am</td><td>Yerevan</td><td>Tigranian</td><td>18791226</td><td>19500210</td><td>am</td><td>m</td><td>Anoush</td><td>am</td><td>~</td><td>20130511</td><td>3</td><td>NaN</td>
+    </tr>
+  </tbody>
+</table>
+    <pre><code>print(df.shape)</code></pre>
+    <p>(33127, 15)</p>
+    <pre><code>print(df.columns)</code></pre>
+    <p>Index(['index', 'season', 'iso', 'city', 'composer', 'db', 'dd', 'nat', 'mf','work', 'worknat', 'type', 'start date', 'performances', 'production'],dtype='object')</p>
+
+    <h2>Inquiry Question</h2>
+    <p>During which era and country were the most operas written?</p>
+
+    <h2>Data Cleaning</h2>
+    <p>Check for and handle any missing values, duplicates, or data quality issues.</p>
+    <pre><code>df.dropna(inplace=True)
+'''This is to drop any rows with missing values.'''</code></pre>
+    
+    <h2>Create Visualizations</h2>
+    <p>Create at least 2 different types of visualizations that help answer your research question.</p>
+    <pre><code>unique_composer_nationalities = df[['composer', 'nat']].drop_duplicates()
+#This finds unique combinations of composer-nationality pairs. Many composers appear multiple times in the data, which would skew my results, so this is intended to make every composer appear only once.
+
+print(f"Number of unique composer-nationality pairs: {len(unique_composer_nationalities)}")
+print("First 10 unique composer-nationality pairs:")
+print(unique_composer_nationalities.head(10))
+
+'''These get the data for composer/nationality counts by taking the nationalities of each composer-nationality pair from the unique composer count'''
+composer_nationality_counts = unique_composer_nationalities['nat'].value_counts().reset_index()
+composer_nationality_counts.columns = ['Nationality', 'Unique_Composer_Count']
+
+
+'''This creates a barplot to display the top 20 composer nationalities, as the original fulllist of countries was very difficult to comprehend.
+The X axis is the number of unique composers.
+The Y axis is the composer nationality by ISO country code.
+'''
+plt.figure(figsize=(12, 8))
+sns.barplot(x='Unique_Composer_Count', y='Nationality', data=composer_nationality_counts.head(20))
+plt.title('Top 20 Composer Nationalities by Number of Unique Composers')
+plt.xlabel('Number of Unique Composers')
+plt.ylabel('Composer Nationality')
+plt.tight_layout() # Adjust layout to prevent labels from overlapping
+plt.show()
+    </code></pre>
+    <img src="composer_nationality.jpg" alt="Composer Nationality Bar Plot">
+    <pre><code>'''For these next steps, I used Gemini to help me extract the birth years of composers from the db, or date of birth, column'.
+I knew that the first four integers were the birth year, so I wanted to extract those.'''
+# Get a DataFrame with unique composers and their 'db' values
+unique_composers_db = df[['composer', 'db']].drop_duplicates(subset=['composer'])
+
+# Ensure 'db' is treated as a string to handle mixed types (e.g., '1840' vs '17560127')
+unique_composers_db['db_str'] = unique_composers_db['db'].astype(str)
+
+# Extract the first 4 characters as the year
+unique_composers_db['birth_year'] = unique_composers_db['db_str'].str[:4]
+
+# Convert the extracted year to numeric, coercing errors to NaN
+unique_composers_db['birth_year'] = pd.to_numeric(unique_composers_db['birth_year'], errors='coerce').astype('Int64')
+
+# Drop the intermediate string column if no longer needed
+unique_composers_db = unique_composers_db.drop(columns=['db_str'])rs='coerce')
+
+'''This creates a histogram to plot the number of unique composers by birth year.
+The x axis is the birth year.
+The y axis is the number of unique composers.
+I decided to do 16 bins because that gives around 25 years a bin because going year by year was difficult to read.'''
+plt.figure(figsize=(12, 8))
+sns.histplot(x='birth_year', data=unique_composers_db, bins=16)
+plt.title('Number of Unique Composers by Birth Year')
+plt.xlabel('Birth Year')
+plt.ylabel('Number of Unique Composers')
+</code></pre>
+    <img src="composer_birthyear.jpg" alt="Composer Birth Year Histogram">
+
+    <h2>Analysis</h2>
+    <p>Write 1-2 paragraphs discussing:</p>
+        <ul>
+            <li>Whether your research question can be answered with the available data</li>
+            <li>What insights you discovered through your visualizations</li>
+            <li>Any unexpected or interesting findings</li>
+            <li>Limitations of your analysis</li>
+            <li>Suggestions for further investigation</li>
+        </ul>
+    <p>     My question was which place and time had the most opera composers. I decided to answer that first part by graphing the composers against their nationality, given in the 'nat' column. For the second part of the question, I decided to answer it by graphing the composers against their birth years, as the available dates were birth years, death years and years of opera performances. Even if there are likely a couple decades between a composer's birth and their first opera, this gives a good visualization of when most composers came from. The first problem with my dataset was that it was showing performances of all operas, including multiple operas by each composer. Because I wanted to focus on the composer, and not the total number of operas, I decided to limit the data to unique composers and graph that by nationality and year of birth date. The nationality visualization indicated that the 5 most popular nationalities were Italy, France, Germany, Austria and Spain. This largely matches what I know from my current knowledge of opera, so I would say that this is good for answering my research question. One thing that was suprising to me was how far Italy seemed ahead of the other countries, by almost 20 composers, while France and Germany are pretty close together. The birth year visualization suprised me because it indicated that most composers were born from about 1830 to 1930, with a spike around 1900. I feel like my conception of opera is that it's an old art form that was most popular around the 1700s or 1800s, but this graph clearly shows that composers continued well into the late 1800s and 1900s. </p> 
+    <p>     In terms of analysis limitations, data collecting might not be entirely accurate because of the long history of opera, and there were columns that I had to remove with no information included. Furthermore, there seems to be a cutoff for composers born around 1950, so this dataset might not include recent composers, which might also include suprising results. I focused on the composers, not their works, so an avenue of future investigation might be looking at the total opera output by county or era or the average number of operas per composer. From this dataset, which tracks performances, it would also be interesting to see which operas are the most popular and how opera popularities have shifted over time.</p>
+
+
+</body>
+</html>
